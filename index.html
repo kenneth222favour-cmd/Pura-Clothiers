@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>PURA CLOTHIERS | Bespoke Menswear & Tailoring Academy</title>
+  <!-- Tailwind CSS + Google Fonts + Font Awesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-serif-alt {
+      font-family: 'Playfair Display', serif;
+    }
+    .bg-green-custom {
+      background-color: #16A34A;
+    }
+    .text-green-custom {
+      color: #16A34A;
+    }
+    .border-green-custom {
+      border-color: #16A34A;
+    }
+    .hover-bg-green-custom:hover {
+      background-color: #15803D;
+    }
+    /* Gallery card animation */
+    .gallery-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 25px -12px rgba(22, 163, 74, 0.3);
+    }
+    .gallery-img {
+      transition: all 0.4s ease;
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(22,163,74,0.9), transparent);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    .gallery-card:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+    /* Loader Styles */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader-content {
+      text-align: center;
+    }
+    .scissors-icon {
+      font-size: 4rem;
+      color: #16A34A;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    .loader-text {
+      margin-top: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff 30%, #16A34A 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 1.5rem;
+    }
+    .progress-bar {
+      width: 200px;
+      height: 3px;
+      background: #1f1f1f;
+      margin: 1rem auto 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #16A34A;
+      transition: width 0.2s linear;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .preloader-fade {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq-answer.active {
+      max-height: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+ <div id="preloader">
+  <div class="loader-content">
+  <!-- Logo - big and centered -->
+  <img src="images/pura logo.png" alt="PURA CLOTHIERS Logo" class="h-40 w-auto mx-auto mb-6 md:h-44">
+  <div class="loader-text">PURA CLOTHIERS</div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <p class="text-gray-400 text-sm mt-3">tailoring excellence</p>
+</div>
+</div>
+
+  <!-- MAIN WEBSITE CONTENT -->
+  <div id="main-content" style="display: none;">
+  
+    <!-- NAVBAR with Logo -->
+<nav class="bg-black text-white sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="flex justify-between items-center py-4 flex-wrap">
+      <div class="flex items-center space-x-3">
+  <!-- Logo - bigger now -->
+  <img src="images/pura logo.png" alt="PURA CLOTHIERS Logo" class="h-12 w-auto md:h-14">
+  <span class="font-serif-alt text-2xl font-bold tracking-tight">PURA<span class="text-green-custom">CLOTHIERS</span></span>
+</div>
+      <div class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#home" class="hover:text-green-custom transition">HOME</a>
+        <a href="#about" class="hover:text-green-custom transition">ABOUT</a>
+        <a href="#gallery" class="hover:text-green-custom transition">GALLERY</a>
+        <a href="#academy" class="hover:text-green-custom transition">ACADEMY</a>
+        <a href="#reviews" class="hover:text-green-custom transition">REVIEWS</a>
+        <a href="#faq" class="hover:text-green-custom transition">FAQ</a>
+        <a href="#contact" class="hover:text-green-custom transition">CONTACT</a>
+      </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-btn" class="text-white focus:outline-none text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden pb-4 flex flex-col space-y-3 text-sm font-medium">
+      <a href="#home" class="hover:text-green-custom transition">HOME</a>
+      <a href="#about" class="hover:text-green-custom transition">ABOUT</a>
+      <a href="#gallery" class="hover:text-green-custom transition">GALLERY</a>
+      <a href="#academy" class="hover:text-green-custom transition">ACADEMY</a>
+      <a href="#reviews" class="hover:text-green-custom transition">REVIEWS</a>
+      <a href="#faq" class="hover:text-green-custom transition">FAQ</a>
+      <a href="#contact" class="hover:text-green-custom transition">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="text-white py-24 md:py-32" style="background: linear-gradient(135deg, rgba(22,163,74,0.92) 0%, rgba(0,0,0,0.85) 100%), url('https://placehold.co/1920x1080/2a2a2a/16A34A?text=PURA+Clothiers'); background-size: cover; background-position: center 30%;">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 text-center md:text-left">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-block bg-black/50 backdrop-blur-sm px-4 py-1 rounded-full text-sm font-semibold mb-4 border-l-4 border-green-custom">
+              ⭐ 5.0 ★ Trusted in Owerri
+            </div>
+            <h1 class="font-serif-alt text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              Sharp <span class="text-green-custom">Style</span>,<br>Perfect Fit.
+            </h1>
+            <p class="text-gray-200 text-lg mt-6 max-w-lg">
+              Bespoke men's clothing & fashion design. Tested, trusted, and tailored for the modern gentleman.
+            </p>
+            <div class="flex flex-wrap gap-4 mt-8">
+              <a href="#academy" class="bg-green-custom hover:bg-[#15803D] text-white px-6 py-3 rounded-full font-semibold transition shadow-lg inline-flex items-center gap-2"><i class="fas fa-graduation-cap"></i> Learn Tailoring</a>
+              <a href="#gallery" class="border border-white hover:bg-white hover:text-black transition px-6 py-3 rounded-full font-semibold inline-flex items-center gap-2"><i class="fas fa-images"></i> View Gallery</a>
+            </div>
+          </div>
+          <div class="hidden md:block bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 text-center">
+            <i class="fas fa-tshirt text-7xl text-green-custom mb-3"></i>
+            <p class="font-serif-alt italic text-xl">"The best boss for men clothing in Owerri"</p>
+            <p class="text-sm mt-2 text-gray-200">— Lily Treasure, verified review</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION - Compact & Responsive with Puraman photo -->
+    <section id="about" class="py-16 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <span class="text-green-custom uppercase tracking-wider text-sm font-bold">✂️ The Master Tailor</span>
+          <h2 class="font-serif-alt text-6xl md:text-4xl font-bold text-black mt-2">Meet Puraman – <br>Your Style Architect</h2>
+          <div class="w-16 h-1 bg-green-custom mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="order-2 md:order-1">
+            <p class="text-gray-700 text-base md:text-lg leading-relaxed">Behind every great outfit is a visionary. <strong class="text-green-custom">Puraman</strong>, the creative force behind PURA CLOTHIERS, brings passion, precision, and artistry to every stitch. With years of experience crafting bespoke menswear, he has become the most trusted name in Ikenegbu, Owerri.</p>
+            <p class="text-gray-700 mt-4 leading-relaxed">His philosophy is simple: clothing should empower. Whether it's a sharp corporate suit or a flowing native agbada, Puraman ensures you look unstoppable. As his Instagram community says: <span class="italic font-medium">"Gifted hands 🤚"</span> – and we couldn't agree more.</p>
+            <div class="mt-5 flex items-center gap-3">
+              <i class="fab fa-instagram text-green-custom text-xl"></i>
+              <span class="font-medium text-sm md:text-base">@pura_clothiers – Celebrating greatness daily.</span>
+            </div>
+          </div>
+
+          <div class="order-1 md:order-2 flex justify-center">
+            <div class="relative max-w-xs md:max-w-sm w-full ml-10 ">
+              <div class="bg-black rounded-xl overflow-hidden shadow-xl border-2 ">
+                <!-- Replace with your actual pura7.png -->
+                <img src="images/pura7.png" 
+                     alt="Brand Owner - Puraman in green and white" 
+                     class="w-full h-auto object-cover">
+              </div>
+              <div class="absolute -bottom-3 -right-3 bg-green-custom text-white rounded-full p-2 shadow-md">
+                <i class="fas fa-crown fa-fw text-sm"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="mt-6 flex items-center gap-3">
+            <i class="fas fa-map-marker-alt text-green-custom text-xl"></i>
+            <span class="font-medium">29 Oduobi Crescent, behind destiny supermarket, Ikenegbu, Owerri 460242, Imo</span>
+          </div>
+          <div class="mt-3 flex items-center gap-3">
+            <i class="fas fa-clock text-green-custom text-xl"></i>
+            <span class="font-medium">Open 24 hours (Labor Day might affect hours)</span>
+          </div>
+          <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="bg-gray-50 p-4 rounded-xl border-l-4 border-green-500">
+              <i class="fas fa-ruler-combined text-2xl text-green-custom mb-2"></i>
+              <p class="font-bold">Bespoke Fitting</p>
+              <p class="text-sm text-gray-600">Perfect measurements</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-xl border-l-4 border-green-500">
+              <i class="fas fa-hand-sparkles text-2xl text-green-custom mb-2"></i>
+              <p class="font-bold">Quality Fabric</p>
+              <p class="text-sm text-gray-600">Premium materials</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== NEW GALLERY SECTION - Sweet Green Animations ========== -->
+     
+    <section id="gallery" class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-green-custom uppercase tracking-wider text-sm font-bold"><i class="fas fa-camera-retro"></i> Our Craftsmanship</span>
+          <h2 class="font-serif-alt text-4xl md:text-5xl font-bold text-black mt-2">See Puraman's Finest Works</h2>
+          <div class="w-24 h-1 bg-green-custom mx-auto mt-4 rounded-full"></div>
+          <p class="text-gray-600 mt-4">Hover over any design to see the magic – each piece is a masterpiece of bespoke tailoring.</p>
+        </div>
+
+        <!-- Responsive Gallery Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          <!-- Gallery Item 1 - Replace src with your image -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/our3.jpg" alt="Bespoke Suit" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-tshirt mr-1"></i> Tailored Suit
+            </div>
+          </div>
+          <!-- Gallery Item 2 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/agabada.jpg" alt="Native Agbada" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-user-tie mr-1"></i> Agbada
+            </div>
+          </div>
+          <!-- Gallery Item 3 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/pura3.png" alt="Corporate Shirt" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-shirt mr-1"></i> Corporate
+            </div>
+          </div>
+          <!-- Gallery Item 4 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/pura7.png" alt="Kaftan" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-crown mr-1"></i> Royal Kaftan
+            </div>
+          </div>
+          <!-- Gallery Item 5 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/our5.jpg" alt="Wedding Suit" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-heart mr-1"></i> Wedding Special
+            </div>
+          </div>
+          <!-- Gallery Item 6 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/pura.png" alt="Casual Blazer" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-glasses mr-1"></i> Smart Casual
+            </div>
+          </div>
+          <!-- Gallery Item 7 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/pura2.png" alt="Traditional Wedding" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-dove mr-1"></i> Native Wedding
+            </div>
+          </div>
+          <!-- Gallery Item 8 -->
+          <div class="gallery-card relative overflow-hidden rounded-xl shadow-md cursor-pointer bg-white">
+            <img src="images/pura3.png" alt="Executive Suite" class="gallery-img w-full h-64 object-cover transition duration-300">
+            <div class="gallery-overlay">
+              <i class="fas fa-briefcase mr-1"></i> Executive
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-10">
+          <a href="#contact" class="inline-flex items-center gap-2 bg-green-custom text-white px-6 py-3 rounded-full font-semibold hover:bg-[#15803D] transition shadow-md">
+            <i class="fas fa-scissors"></i> Book a fitting & see more
+          </a>
+        </div>
+      </div>
+    </section>
+
+   <!-- ACADEMY SECTION - 4 Cards Auto Slider (original card size, no arrows) -->
+<section id="academy" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="text-center max-w-2xl mx-auto mb-12 animate-on-scroll">
+      <span class="text-green-custom uppercase tracking-wider text-sm font-bold"><i class="fas fa-chalkboard-user"></i> PASS THE SCISSORS</span>
+      <h2 class="font-serif-alt text-4xl md:text-5xl font-bold text-black mt-2">PURA Tailoring Academy</h2>
+      <div class="w-20 h-1 bg-green-custom mx-auto mt-4 rounded-full"></div>
+      <p class="text-gray-600 mt-4">Become a master of the needle. Learn from industry professionals and join the next generation of fashion designers.</p>
+    </div>
+
+    <!-- Carousel Container (no arrows, just auto-slide) -->
+    <div class="relative overflow-hidden" id="academyCarousel">
+      <div class="flex transition-transform duration-500 ease-out" id="carouselTrack">
+        <!-- Card 1 - Beginner's Bootcamp -->
+        <div class="flex-shrink-0 px-3 carousel-card" style="width: calc(100% / 1);">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition h-full">
+            <div class="h-2 bg-green-custom"></div>
+            <div class="p-5">
+              <i class="fas fa-user-graduate text-4xl text-green-custom mb-4"></i>
+              <h3 class="text-xl font-bold">Beginner's Bootcamp</h3>
+              <p class="text-gray-500 text-sm mt-1">4 weeks · No experience needed</p>
+              <ul class="mt-4 space-y-2 text-gray-600 text-sm">
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Understanding sewing machines</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Basic stitches & patterns</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Simple shirt & trouser</li>
+              </ul>
+              <div class="mt-6">
+                <span class="text-2xl font-bold text-black">₦150,000</span>
+                <a href="#contact" class="mt-3 block text-center bg-black text-white py-2 rounded-full hover:bg-green-custom transition">Enroll Now →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 - Pro Tailor Diploma -->
+        <div class="flex-shrink-0 px-3 carousel-card" style="width: calc(100% / 1);">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-green-custom h-full">
+            <div class="p-5">
+              <i class="fas fa-user-tie text-4xl text-green-custom mb-4"></i>
+              <h3 class="text-xl font-bold">Pro Tailor Diploma</h3>
+              <p class="text-gray-500 text-sm mt-1">8 weeks · Portfolio building</p>
+              <ul class="mt-4 space-y-2 text-gray-600 text-sm">
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Bespoke suit construction</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Native wear (Agbada, Kaftan)</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Business & client management</li>
+              </ul>
+              <div class="mt-6">
+                <span class="text-2xl font-bold text-black">₦250,000</span>
+                <a href="#contact" class="mt-3 block text-center bg-green-custom text-white py-2 rounded-full hover:bg-black transition">Enroll Now →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 - Master's Edge -->
+        <div class="flex-shrink-0 px-3 carousel-card" style="width: calc(100% / 1);">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition h-full">
+            <div class="h-2 bg-black"></div>
+            <div class="p-5">
+              <i class="fas fa-crown text-4xl text-green-custom mb-4"></i>
+              <h3 class="text-xl font-bold">Master's Edge</h3>
+              <p class="text-gray-500 text-sm mt-1">12 weeks · Mentorship & internship</p>
+              <ul class="mt-4 space-y-2 text-gray-600 text-sm">
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Advanced pattern drafting</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Fashion business & branding</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> 1-on-1 with Pura Man</li>
+              </ul>
+              <div class="mt-6">
+                <span class="text-2xl font-bold text-black">₦400,000</span>
+                <a href="#contact" class="mt-3 block text-center bg-black text-white py-2 rounded-full hover:bg-green-custom transition">Apply Now →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 - Premium Masterclass -->
+        <div class="flex-shrink-0 px-3 carousel-card" style="width: calc(100% / 1);">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-black h-full">
+            <div class="p-5">
+              <i class="fas fa-chalkboard-teacher text-4xl text-green-custom mb-4"></i>
+              <h3 class="text-xl font-bold">Premium Masterclass</h3>
+              <p class="text-gray-500 text-sm mt-1">6 weeks · Exclusive group coaching</p>
+              <ul class="mt-4 space-y-2 text-gray-600 text-sm">
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Digital fashion illustration</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Life time access to Pura Man</li>
+                <li><i class="fas fa-check-circle text-green-custom mr-2"></i> Certificate & photoshoot</li>
+              </ul>
+              <div class="mt-6">
+                <span class="text-2xl font-bold text-black">₦600,000</span>
+                <a href="#contact" class="mt-3 block text-center bg-black text-white py-2 rounded-full hover:bg-green-custom transition">Join Masterclass →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instagram testimonial block -->
+    <div class="bg-black text-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center justify-between mt-16 animate-on-scroll">
+      <div class="flex items-center gap-4">
+        <i class="fab fa-instagram text-4xl text-green-custom"></i>
+        <div>
+          <p class="font-serif-alt text-xl">“Blessed birthday Puraman… Remain unstoppable as always”</p>
+          <p class="text-gray-400 text-sm mt-1">– Instagram community celebrating gifted hands</p>
+        </div>
+      </div>
+      <a href="https://www.instagram.com/pura_clothiers/p/DGhhJPWKw48/" target="_blank" class="bg-green-custom px-5 py-2 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition">View Post →</a>
+    </div>
+  </div>
+</section>
+
+    <!-- ========== DIASPORA / GLOBAL CLIENTELE SECTION ========== -->
+<section id="global" class="py-20 bg-white animate-on-scroll">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-green-custom uppercase tracking-wider text-sm font-bold"><i class="fas fa-globe-africa"></i> Worldwide Reach</span>
+      <h2 class="font-serif-alt text-4xl md:text-5xl font-bold text-black mt-2">Serving Our Diaspora Family</h2>
+      <div class="w-24 h-1 bg-green-custom mx-auto mt-4 rounded-full"></div>
+      <p class="text-gray-600 mt-4 text-lg">From Owerri to the world – we tailor for gentlemen across all continents.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center mb-12">
+      <!-- Africa -->
+      <div class="bg-gray-50 rounded-2xl p-5 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+        <i class="fas fa-map-marker-alt text-4xl text-green-custom mb-3"></i>
+        <h3 class="font-bold text-lg">Africa</h3>
+        <p class="text-gray-500 text-sm">Nigeria, Ghana, SA, Kenya</p>
+      </div>
+      <!-- Europe -->
+      <div class="bg-gray-50 rounded-2xl p-5 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+        <i class="fas fa-university text-4xl text-green-custom mb-3"></i>
+        <h3 class="font-bold text-lg">Europe</h3>
+        <p class="text-gray-500 text-sm">UK, Germany, Italy, France</p>
+      </div>
+      <!-- North America -->
+      <div class="bg-gray-50 rounded-2xl p-5 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+        <i class="fas fa-flag-usa text-4xl text-green-custom mb-3"></i>
+        <h3 class="font-bold text-lg">North America</h3>
+        <p class="text-gray-500 text-sm">USA, Canada, Mexico</p>
+      </div>
+      <!-- Asia -->
+      <div class="bg-gray-50 rounded-2xl p-5 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+        <i class="fas fa-pagelines text-4xl text-green-custom mb-3"></i>
+        <h3 class="font-bold text-lg">Asia</h3>
+        <p class="text-gray-500 text-sm">UAE, China, India, Japan</p>
+      </div>
+      <!-- Australia / Oceania -->
+      <div class="bg-gray-50 rounded-2xl p-5 shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+        <i class="fas fa-water text-4xl text-green-custom mb-3"></i>
+        <h3 class="font-bold text-lg">Oceania</h3>
+        <p class="text-gray-500 text-sm">Australia, NZ, Pacific</p>
+      </div>
+    </div>
+
+    <div class="bg-black text-white rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-center justify-between shadow-xl">
+      <div class="flex-1 text-center md:text-left">
+        <i class="fas fa-ship text-3xl text-green-custom mb-3 block"></i>
+        <h3 class="font-serif-alt text-2xl font-bold">International Orders & Virtual Consultations</h3>
+        <p class="text-gray-300 mt-2">We ship worldwide and offer online fittings via WhatsApp & Zoom. Your style, no matter the distance.</p>
+      </div>
+      <div class="flex gap-4">
+        <a href="https://wa.me/2347035362855" target="_blank" class="inline-flex items-center gap-2 bg-green-custom hover:bg-[#15803D] px-5 py-2 rounded-full font-semibold transition"><i class="fab fa-whatsapp"></i> WhatsApp Order</a>
+        <a href="#contact" class="inline-flex items-center gap-2 border border-white hover:bg-white hover:text-black px-5 py-2 rounded-full font-semibold transition"><i class="fas fa-video"></i> Book Virtual Fit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- REVIEWS SECTION -->
+    <section id="reviews" class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="text-center mb-12">
+          <span class="text-green-custom font-bold tracking-wider uppercase"><i class="fas fa-star"></i> Client Voices</span>
+          <h2 class="font-serif-alt text-4xl font-bold text-black mt-2">What They Say About Us</h2>
+          <div class="flex justify-center mt-3 gap-1 text-yellow-400 text-xl">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span class="text-gray-700 ml-2 font-semibold">5.0 · 1 review</span>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="bg-white p-6 rounded-2xl shadow-md border-l-8 border-green-custom">
+            <div class="flex items-center gap-3">
+              <div class="bg-green-custom w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl">LT</div>
+              <div><h4 class="font-bold text-lg">lily treasure</h4><div class="flex text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
+            </div>
+            <p class="mt-4 text-gray-700 italic">"He's good at his work, the best boss for men clothing in Owerri… Tested and trusted."</p>
+            <p class="text-xs text-gray-400 mt-3"><i class="far fa-clock"></i> 10 months ago</p>
+            <div class="mt-3 bg-gray-100 p-3 rounded-lg text-sm text-gray-600"><i class="fas fa-reply-all text-green-custom"></i> <strong>Response:</strong> "Thanks dear We’re committed to delivering the best always…..✂️✂️✂️"</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-md">
+            <div class="flex items-center gap-3"><div class="bg-gray-800 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl">EC</div><div><h4 class="font-bold text-lg">Emeka C.</h4><div class="flex text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div></div>
+            <p class="mt-4 text-gray-700 italic">"The academy is a game-changer! I learned professional tailoring in weeks. Highly recommended."</p>
+            <p class="text-xs text-gray-400 mt-2"><i class="far fa-calendar-alt"></i> 2 months ago</p>
+          </div>
+        </div>
+        <!-- Testimonial from diaspora client (optional, you can replace with real review) -->
+    <div class="mt-10 text-center max-w-2xl mx-auto bg-gray-50 p-6 rounded-xl border-l-4 border-green-custom animate-on-scroll">
+      <i class="fas fa-quote-left text-3xl text-green-custom opacity-50 mb-2"></i>
+      <p class="text-gray-700 italic">“I ordered my wedding agbada from Canada and it fit perfectly. Puraman’s team sent me progress videos and delivered earlier than expected. Truly world‑class!”</p>
+      <p class="font-semibold mt-3">— Michael O. (Toronto, Canada)</p>
+      <div class="flex justify-center mt-2 text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+    </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="text-center mb-12"><span class="text-green-custom uppercase tracking-wider font-bold">Got Questions?</span><h2 class="font-serif-alt text-4xl font-bold text-black mt-2">Frequently Asked Questions</h2><div class="w-16 h-1 bg-green-custom mx-auto mt-3 rounded-full"></div></div>
+        <div class="space-y-4" id="faq-container">
+          <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm"><div class="faq-question flex justify-between items-center p-5 bg-gray-50 hover:bg-gray-100 transition cursor-pointer"><h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-tshirt text-green-custom"></i> What type of clothing do you specialize in?</h3><i class="fas fa-chevron-down text-green-custom transition-transform duration-300"></i></div><div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">We specialize in bespoke men's clothing including tailored suits, native/traditional outfits, corporate shirts, and luxury casual wear.</div></div>
+          <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm"><div class="faq-question flex justify-between items-center p-5 bg-gray-50 hover:bg-gray-100 transition cursor-pointer"><h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-graduation-cap"></i> Do I need experience to join the academy?</h3><i class="fas fa-chevron-down text-green-custom transition-transform duration-300"></i></div><div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">Not at all! Our Beginner's Bootcamp starts from absolute zero. We also have advanced courses for experienced tailors.</div></div>
+          <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm"><div class="faq-question flex justify-between items-center p-5 bg-gray-50 hover:bg-gray-100 transition cursor-pointer"><h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-map-pin"></i> Where is PURA CLOTHIERS located?</h3><i class="fas fa-chevron-down text-green-custom transition-transform duration-300"></i></div><div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">29 Oduobi Crescent, behind Destiny Supermarket, Ikenegbu, Owerri 460242, Imo. Open 24 hours.</div></div>
+          <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm"><div class="faq-question flex justify-between items-center p-5 bg-gray-50 hover:bg-gray-100 transition cursor-pointer"><h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-calendar-check"></i> How long does a custom outfit take?</h3><i class="fas fa-chevron-down text-green-custom transition-transform duration-300"></i></div><div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">Typically 5–10 days. Rush orders can be accommodated. Quality is never compromised.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-black text-white">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid md:grid-cols-2 gap-12">
+          <div><span class="text-green-custom font-bold uppercase tracking-wide"><i class="fas fa-address-card"></i> Get in touch</span><h2 class="font-serif-alt text-3xl md:text-4xl font-bold mt-2 mb-6">Start your tailoring <span class="text-green-custom">journey</span></h2><div class="space-y-5"><div class="flex items-center gap-4"><div class="w-10 h-10 bg-green-custom rounded-full flex items-center justify-center"><i class="fas fa-phone-alt text-white"></i></div><div><p class="font-semibold">Phone / WhatsApp</p><p class="text-gray-300">0703 536 2855</p></div></div><div class="flex items-center gap-4"><div class="w-10 h-10 bg-green-custom rounded-full flex items-center justify-center"><i class="fas fa-location-dot text-white"></i></div><div><p class="font-semibold">Studio Address</p><p class="text-gray-300">29 Oduobi Cres, Ikenegbu, Owerri</p></div></div><div class="flex items-center gap-4"><div class="w-10 h-10 bg-green-custom rounded-full flex items-center justify-center"><i class="fas fa-clock text-white"></i></div><div><p class="font-semibold">Hours</p><p class="text-gray-300">Open 24 hours</p></div></div></div><div class="mt-8"><a href="tel:07035362855" class="inline-flex items-center gap-2 bg-green-custom hover:bg-[#15803D] px-6 py-3 rounded-full font-semibold transition shadow-lg"><i class="fas fa-phone-alt"></i> Call Now</a></div></div>
+          <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-xl border border-gray-700"><div class="h-64 w-full bg-cover flex flex-col items-center justify-center text-center p-4" style="background: #111;"><i class="fas fa-map-pin text-4xl text-green-custom mb-2"></i><p class="font-bold text-white">📍 PURA CLOTHIERS @ Ikenegbu</p><p class="text-gray-200 text-sm">Behind Destiny Supermarket, Owerri</p><a href="https://maps.google.com/?q=29+Oduobi+Crescent+Owerri" target="_blank" class="mt-3 text-green-custom underline text-sm">View on Google Maps →</a></div><div class="p-4 bg-gray-800/50 text-center text-sm text-gray-300"><i class="fas fa-scissors"></i> "Committed to delivering the best always ✂️✂️✂️"</div></div>
+        </div>
+      </div>
+    </section>
+
+
+
+        <!-- FOOTER with Map Image - Small & Clean -->
+<footer class="bg-black border-t border-gray-800">
+  <!-- Map Image Section (inside footer) -->
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-6 pb-4">
+    <div class="rounded-lg overflow-hidden shadow-md max-w-md mx-auto md:max-w-2xl">
+      <!-- Map image: small, responsive, maintains aspect ratio -->
+      <img src="images/pura map.png" 
+           alt="Map location of PURA CLOTHIERS at 29 Oduobi Crescent, Ikenegbu, Owerri" 
+           class="w-full h-36 sm:h-44 md:h-48 object-contain">
+    </div>
+    <div class="text-center text-gray-400 text-sm mt-3">
+      <p><i class="fas fa-map-marker-alt text-green-custom"></i> 29 Oduobi Crescent, behind destiny supermarket, Ikenegbu, Owerri 460242, Imo</p>
+      <p class="mt-1"><i class="fas fa-clock text-green-custom"></i> Open 24 hours (Labor Day might affect hours)</p>
+    </div>
+  </div>
+
+  <!-- Copyright and social links -->
+  <div class=" py-6 text-center text-gray-400 text-sm">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-6 mb-4">
+        <span class="flex items-center gap-1"><i class="fab fa-instagram text-green-custom"></i> @pura_clothiers</span>
+        <span><i class="fas fa-cut"></i> Bespoke Menswear & Academy</span>
+      </div>
+      <p>© 2025 PURA CLOTHIERS — Tailoring Excellence in Owerri. All rights reserved.</p>
+      <p class="text-xs text-gray-500 mt-2">5.0 ★ from clients | Learn to sew with PURA Academy</p>
+    </div>
+  </div>
+</footer>
+
+
+  <script>
+    // Preloader
+    let progress = 0;
+    const progressFill = document.getElementById('progressFill');
+    const preloader = document.getElementById('preloader');
+    const mainContent = document.getElementById('main-content');
+    
+    function updateProgress() {
+      if (progress < 100) {
+        progress += Math.floor(Math.random() * 15) + 5;
+        if (progress > 100) progress = 100;
+        if (progressFill) progressFill.style.width = progress + '%';
+        setTimeout(updateProgress, 150);
+      } else {
+        if (preloader) {
+          preloader.classList.add('preloader-fade');
+          setTimeout(() => {
+            preloader.style.display = 'none';
+            if (mainContent) mainContent.style.display = 'block';
+          }, 600);
+        }
+      }
+    }
+    window.addEventListener('load', () => setTimeout(updateProgress, 100));
+    setTimeout(() => {
+      if (preloader && preloader.style.display !== 'none') {
+        progress = 100;
+        if (progressFill) progressFill.style.width = '100%';
+        preloader.classList.add('preloader-fade');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          if (mainContent) mainContent.style.display = 'block';
+        }, 600);
+      }
+    }, 4000);
+    
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if(mobileBtn) mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(item => {
+      const answer = item.nextElementSibling;
+      const icon = item.querySelector('.fa-chevron-down');
+      answer.style.maxHeight = null;
+      item.addEventListener('click', () => {
+        faqQuestions.forEach(other => {
+          if(other !== item) {
+            const otherAnswer = other.nextElementSibling;
+            const otherIcon = other.querySelector('.fa-chevron-down');
+            otherAnswer.classList.remove('active');
+            otherAnswer.style.maxHeight = null;
+            if(otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+          }
+        });
+        answer.classList.toggle('active');
+        if(answer.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          if(icon) icon.style.transform = 'rotate(180deg)';
+        } else {
+          answer.style.maxHeight = null;
+          if(icon) icon.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+  </script>
+  <script>
+  (function() {
+    // Multi‑item auto carousel without arrows
+    const track = document.getElementById('carouselTrack');
+    if (!track) return;
+
+    const cards = Array.from(track.children);
+    const cardWidth = cards[0]?.offsetWidth || 0;
+    let currentIndex = 0;
+    let autoInterval;
+
+    // Function to update visible cards per breakpoint: show 1 on mobile, 2 on tablet, 3 on desktop
+    function getVisibleCardsCount() {
+      const width = window.innerWidth;
+      if (width < 640) return 1;      // mobile
+      if (width < 1024) return 2;     // tablet
+      return 3;                       // desktop
+    }
+
+    function updateCardWidths() {
+      const visible = getVisibleCardsCount();
+      const containerWidth = track.parentElement.clientWidth;
+      const newCardWidth = containerWidth / visible;
+      cards.forEach(card => {
+        card.style.width = `${newCardWidth}px`;
+      });
+      return newCardWidth;
+    }
+
+    function slideTo(index, animate = true) {
+      const visible = getVisibleCardsCount();
+      const maxIndex = cards.length - visible;
+      if (index > maxIndex) index = 0;
+      if (index < 0) index = maxIndex;
+      currentIndex = index;
+      const slideDistance = currentIndex * (cards[0]?.offsetWidth || 0);
+      track.style.transform = `translateX(-${slideDistance}px)`;
+      if (!animate) {
+        track.style.transition = 'none';
+        track.offsetHeight; // force reflow
+        track.style.transition = '';
+      }
+    }
+
+    function nextSlide() {
+      const visible = getVisibleCardsCount();
+      const maxIndex = cards.length - visible;
+      let next = currentIndex + 1;
+      if (next > maxIndex) {
+        next = 0;
+      }
+      slideTo(next);
+    }
+
+    function startAutoSlide() {
+      if (autoInterval) clearInterval(autoInterval);
+      autoInterval = setInterval(nextSlide, 3000);
+    }
+
+    function resetCarousel() {
+      updateCardWidths();
+      slideTo(0, false);
+      startAutoSlide();
+    }
+
+    // Initial setup
+    resetCarousel();
+
+    // On window resize, recalc and reset position
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const oldVisible = getVisibleCardsCount();
+        resetCarousel();
+        // Optionally, keep current index relative? Simpler to reset to 0.
+      }, 150);
+    });
+
+    // Pause on hover (optional, improves UX)
+    const carouselContainer = document.getElementById('academyCarousel');
+    if (carouselContainer) {
+      carouselContainer.addEventListener('mouseenter', () => {
+        if (autoInterval) clearInterval(autoInterval);
+      });
+      carouselContainer.addEventListener('mouseleave', () => {
+        startAutoSlide();
+      });
+    }
+  })();
+</script>
+</body>
+</html>
